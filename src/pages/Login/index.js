@@ -24,7 +24,7 @@ export default function Login() {
   }
 
   function handleSubmit() {
-    console.log('Submit');
+    navigation.navigate('Home');
   }
 
   useEffect(() => {
