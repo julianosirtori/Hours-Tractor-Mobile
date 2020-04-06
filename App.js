@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 
+import { createTablesDB } from './src/data';
 import Routes from './src/routes';
 
 import OswaldMedium from './assets/fonts/Oswald-Medium.ttf';
@@ -22,6 +23,7 @@ export default function App() {
   }
 
   useEffect(() => {
+    createTablesDB();
     loadFonts();
   }, []);
 

@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+
+import db from '../../data';
 import Tractor from '../../components/Tractor';
 import Header from '../../components/Header';
 import {
   Container, Title, Tractors, BtnAddTractor,
 } from './styles';
 
-const tractors = [1, 2, 3, 4, 5];
-
 export default function ChooseTractor() {
+  const [tractors, setTractors] = useState([]);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'select * from tractors;',
+        [],
+        (_, { rows: { _array } }) => setTractors(_array),
+      );
+    });
+  }, []);
 
   function selectedTractor() {
     navigation.navigate('ChooseClient');
+  }
+
+  function navigateToNewTractor() {
+    navigation.navigate('NewTractor');
   }
 
   return (
@@ -22,12 +37,13 @@ export default function ChooseTractor() {
       <Tractors>
         { tractors.map((item) => (
           <Tractor
+            tractor={item}
             onPress={selectedTractor}
-            key={String(item)}
+            key={String(item.id)}
           />
         )) }
       </Tractors>
-      <BtnAddTractor>
+      <BtnAddTractor onPress={navigateToNewTractor}>
         Cadastrar Trator
       </BtnAddTractor>
     </Container>

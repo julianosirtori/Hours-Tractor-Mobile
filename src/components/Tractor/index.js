@@ -5,14 +5,14 @@ import {
   Container, Header, TextHeader, TextName, Buttons, Button,
 } from './styles';
 
-export default function Tractor({ ...props }) {
+export default function Tractor({ tractor, ...props }) {
   return (
     <Container {...props}>
       <Header>
-        <TextHeader>Valtra</TextHeader>
-        <TextHeader>2015</TextHeader>
+        <TextHeader>{tractor.brand}</TextHeader>
+        <TextHeader>{tractor.year}</TextHeader>
       </Header>
-      <TextName>Trator Numero 01</TextName>
+      <TextName>{tractor.name}</TextName>
       <Buttons>
         <Button>
           <MaterialIcons name="edit" size={28} color="#FFA200" />
