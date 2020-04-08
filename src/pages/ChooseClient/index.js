@@ -1,19 +1,39 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
+import db from '../../data';
 import Header from '../../components/Header';
 import Client from '../../components/Client';
 import {
   Container, Title, Clients, BtnAddClient,
 } from './styles';
 
-const clients = [1, 2, 3, 4, 5];
 
 export default function ChooseClient() {
+  const [clients, setClients] = useState([]);
   const navigation = useNavigation();
+
+  function loadClients() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'select * from clients;',
+        [],
+        (_, { rows: { _array } }) => setClients(_array),
+      );
+    });
+  }
+
+  useFocusEffect(() => {
+    loadClients();
+  });
+
 
   function selectedClient() {
     navigation.navigate('NewOrder');
+  }
+
+  function navigateToNewClient() {
+    navigation.navigate('NewClient');
   }
 
   return (
@@ -23,12 +43,14 @@ export default function ChooseClient() {
       <Clients>
         { clients.map((item) => (
           <Client
-            key={String(item)}
+            key={String(item.id)}
+            deleteCallBack={loadClients}
+            client={item}
             onPress={selectedClient}
           />
         )) }
       </Clients>
-      <BtnAddClient>
+      <BtnAddClient onPress={navigateToNewClient}>
         Cadastrar Cliente
       </BtnAddClient>
     </Container>

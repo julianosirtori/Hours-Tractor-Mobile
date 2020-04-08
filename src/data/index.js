@@ -14,6 +14,15 @@ export function createTablesDB() {
         totalHours INTEGER NOT NULL \
       );',
     );
+
+    tx.executeSql(
+      'create table if not exists clients ( \
+        id INTEGER PRIMARY KEY AUTOINCREMENT, \
+        name TEXT NOT NULL, \
+        address TEXT NOT NULL, \
+        contact TEXT NOT NULL \
+      );',
+    );
   });
 }
 
