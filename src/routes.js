@@ -7,6 +7,7 @@ import ChooseTractor from './pages/ChooseTractor';
 import ChooseClient from './pages/ChooseClient';
 import NewOrder from './pages/NewOrder';
 import NewTractor from './pages/NewTractor';
+import EditTractor from './pages/EditTractor';
 
 
 const AppStack = createStackNavigator();
@@ -20,6 +21,7 @@ export default function Routes() {
         <AppStack.Screen component={ChooseClient} name="ChooseClient" />
         <AppStack.Screen component={NewOrder} name="NewOrder" />
         <AppStack.Screen component={NewTractor} name="NewTractor" />
+        <AppStack.Screen component={EditTractor} name="EditTractor" />
       </AppStack.Navigator>
     </NavigationContainer>
   );

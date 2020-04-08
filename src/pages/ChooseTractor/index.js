@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import db from '../../data';
 import Tractor from '../../components/Tractor';
@@ -12,7 +12,7 @@ export default function ChooseTractor() {
   const [tractors, setTractors] = useState([]);
   const navigation = useNavigation();
 
-  useEffect(() => {
+  function loadTractors() {
     db.transaction((tx) => {
       tx.executeSql(
         'select * from tractors;',
@@ -20,7 +20,12 @@ export default function ChooseTractor() {
         (_, { rows: { _array } }) => setTractors(_array),
       );
     });
-  }, []);
+  }
+
+  useFocusEffect(() => {
+    loadTractors();
+  });
+
 
   function selectedTractor() {
     navigation.navigate('ChooseClient');
@@ -38,6 +43,7 @@ export default function ChooseTractor() {
         { tractors.map((item) => (
           <Tractor
             tractor={item}
+            deleteCallBack={loadTractors}
             onPress={selectedTractor}
             key={String(item.id)}
           />
