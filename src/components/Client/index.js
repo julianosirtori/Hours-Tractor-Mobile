@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Alert } from 'react-native';
 
@@ -8,6 +9,8 @@ import {
 } from './styles';
 
 export default function Client({ client, deleteCallBack, ...props }) {
+  const navigation = useNavigation();
+
   function deleteClient(id) {
     db.transaction(
       (tx) => {
@@ -28,11 +31,15 @@ export default function Client({ client, deleteCallBack, ...props }) {
     );
   }
 
+  function navigateToEditClient() {
+    navigation.navigate('EditClient', { client });
+  }
+
   return (
     <Container {...props}>
       <TextName>{client.name}</TextName>
       <Buttons>
-        <Button>
+        <Button onPress={() => navigateToEditClient()}>
           <MaterialIcons name="edit" size={28} color="#525252" />
         </Button>
         <Button onPress={() => deleteAlert(client.id)}>

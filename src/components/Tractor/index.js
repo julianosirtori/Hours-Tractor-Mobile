@@ -32,7 +32,7 @@ export default function Tractor({ tractor, deleteCallBack, ...props }) {
   }
 
   function navigateToEditTractor() {
-    navigation.navigate('EditTractor');
+    navigation.navigate('EditTractor', { tractor });
   }
 
   return (
