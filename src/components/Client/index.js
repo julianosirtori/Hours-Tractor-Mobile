@@ -28,7 +28,6 @@ export default function Client({ client, deleteCallBack, ...props }) {
     );
   }
 
-
   return (
     <Container {...props}>
       <TextName>{client.name}</TextName>

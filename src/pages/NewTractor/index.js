@@ -6,7 +6,7 @@ import db from '../../data';
 import Header from '../../components/Header';
 import {
   Container, Title, KeyboardAvoidingContainer, ScrollContainer, InputStyled, ButtonStyled,
-} from './styles';
+} from '../../styles/forms';
 
 export default function NewTractor() {
   const [brand, setBrand] = useState('');
@@ -23,7 +23,7 @@ export default function NewTractor() {
   function submit() {
     db.transaction(
       (tx) => {
-        tx.executeSql('insert into tractors (brand, year, name, totalHours) values (?, ?, ?, ?)', [brand, year, name, totalHours], (sucess) => {
+        tx.executeSql('insert into tractors (brand, year, name, totalHours) values (?, ?, ?, ?)', [brand, year, name, totalHours], () => {
           Alert.alert(
             'Atenção',
             'Trator Cadastrado com sucesso',

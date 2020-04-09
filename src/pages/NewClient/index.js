@@ -6,7 +6,7 @@ import db from '../../data';
 import Header from '../../components/Header';
 import {
   Container, Title, KeyboardAvoidingContainer, ScrollContainer, InputStyled, ButtonStyled,
-} from './styles';
+} from '../../styles/forms';
 
 export default function NewClient() {
   const [name, setName] = useState('');
