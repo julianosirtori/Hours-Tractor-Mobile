@@ -23,6 +23,20 @@ export function createTablesDB() {
         contact TEXT NOT NULL \
       );',
     );
+
+    tx.executeSql(
+      'create table if not exists orders ( \
+        id INTEGER PRIMARY KEY AUTOINCREMENT, \
+        client_id_ INTEGER NOT NULL, \
+        tractor_id INTEGER NOT NULL, \
+        description TEXT NOT NULL, \
+        value_time REAL NOT NULL, \
+        total_time TEXT NOT NULL, \
+        isPaid BLOB NOT NULL, \
+        FOREIGN KEY(tractor_id) REFERENCES tractors(id), \
+        FOREIGN KEY(client_id_) REFERENCES clients(id) \
+      );',
+    );
   });
 }
 
